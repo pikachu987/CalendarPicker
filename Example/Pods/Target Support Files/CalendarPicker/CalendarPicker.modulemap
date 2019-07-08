@@ -1,0 +1,6 @@
+framework module CalendarPicker {
+  umbrella header "CalendarPicker-umbrella.h"
+
+  export *
+  module * { export * }
+}

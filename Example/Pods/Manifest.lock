@@ -1,0 +1,16 @@
+PODS:
+  - CalendarPicker (0.1.0)
+
+DEPENDENCIES:
+  - CalendarPicker (from `../`)
+
+EXTERNAL SOURCES:
+  CalendarPicker:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CalendarPicker: 14121d42fe40b23a06eb2cf92035dcd73b2447b9
+
+PODFILE CHECKSUM: 59f918ade20eb5e0d4e16d88b332e0a2bf2dc08d
+
+COCOAPODS: 1.7.2
