@@ -56,13 +56,13 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="glJ-gc-sef">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-10" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="glJ-gc-sef">
                                                 <rect key="frame" x="18" y="82.5" width="339" height="31"/>
                                                 <connections>
                                                     <action selector="miniumChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Cjm-J4-vbQ"/>
                                                 </connections>
                                             </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="4Re-ib-hSG">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="-10" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="4Re-ib-hSG">
                                                 <rect key="frame" x="18" y="141" width="339" height="31"/>
                                                 <connections>
                                                     <action selector="maximumChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="O8h-II-Qfq"/>

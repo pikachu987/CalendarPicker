@@ -117,6 +117,8 @@ open class CalendarPicker: UIView {
     private let months: Int = 12
     private var days: Int = 31
     
+    private var isShow = true
+    
     private var _date = Date()
     private var dateComponent: DateComponent {
         return self.date.dateComponent
@@ -166,16 +168,27 @@ open class CalendarPicker: UIView {
     }
     
     private func updateDate(animated: Bool) {
+        self.isShow = true
+        if let minimumDate = self.minimumDate, let maximumDate = self.maximumDate {
+            if (minimumDate.dateComponent.year > maximumDate.dateComponent.year) ||
+             (minimumDate.dateComponent.year == maximumDate.dateComponent.year && minimumDate.dateComponent.month > maximumDate.dateComponent.month) ||
+            (minimumDate.dateComponent.year == maximumDate.dateComponent.year && minimumDate.dateComponent.month == maximumDate.dateComponent.month && minimumDate.dateComponent.day > maximumDate.dateComponent.day) {
+                self.isShow = false
+            }
+        }
         self.pickerView.reloadAllComponents()
         
-        self.availableYearDate()
-        self.updateYearDate(animated: animated)
-        
-        self.availableMonthDate()
-        self.updateMonthDate(animated: animated)
-        
-        self.availableDayDate()
-        self.updateDayhDate(animated: animated)
+        if self.isShow {
+            self.availableYearDate()
+            self.availableMonthDate()
+            self.availableDayDate()
+            
+            if self.updateYearDate(animated: animated) {
+                if self.updateMonthDate(animated: animated) {
+                    self.updateDayhDate(animated: animated)
+                }
+            }
+        }
     }
     
     private func availableYearDate() {
@@ -235,16 +248,31 @@ open class CalendarPicker: UIView {
         self.pickerView.reloadComponent(self.localeType.dateIndex(.day))
     }
     
-    private func updateYearDate(animated: Bool) {
+    @discardableResult
+    private func updateYearDate(animated: Bool) -> Bool {
+        if !self.isShow { return false }
+        if self.dateComponent.year - self.minimumDateComponent.year - 1 < 0 { return false }
+        if (self.years - self.minimumDateComponent.year - self.maximumDateComponent.year) < (self.dateComponent.year - self.minimumDateComponent.year - 1) { return false }
         self.pickerView.selectRow(self.dateComponent.year - self.minimumDateComponent.year - 1, inComponent: self.localeType.dateIndex(.year), animated: animated)
+        return true
     }
     
-    private func updateMonthDate(animated: Bool) {
+    @discardableResult
+    private func updateMonthDate(animated: Bool) -> Bool {
+        if !self.isShow { return false }
+        if self.dateComponent.month - self.minimumDateComponent.month - 1 < 0 { return false }
+        if (self.months - self.minimumDateComponent.month - self.maximumDateComponent.month) < (self.dateComponent.month - self.minimumDateComponent.month - 1) { return false }
         self.pickerView.selectRow(self.dateComponent.month - self.minimumDateComponent.month - 1, inComponent: self.localeType.dateIndex(.month), animated: animated)
+        return true
     }
     
-    private func updateDayhDate(animated: Bool) {
+    @discardableResult
+    private func updateDayhDate(animated: Bool) -> Bool {
+        if !self.isShow { return false }
+        if self.dateComponent.day - self.minimumDateComponent.day - 1 < 0 { return false }
+        if (self.days - self.minimumDateComponent.day - self.maximumDateComponent.day) < (self.dateComponent.day - self.minimumDateComponent.day - 1) { return false }
         self.pickerView.selectRow(self.dateComponent.day - self.minimumDateComponent.day - 1, inComponent: self.localeType.dateIndex(.day), animated: animated)
+        return true
     }
     
     private func checkWeek(_ value: Int) -> (week: DateComponent.Weekday, weekValue: String) {
@@ -280,6 +308,7 @@ extension CalendarPicker: UIPickerViewDelegate {
 // MARK: UIPickerViewDataSource
 extension CalendarPicker: UIPickerViewDataSource {
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if !self.isShow { return 0 }
         return self.localeType.dateArray.count
     }
     
