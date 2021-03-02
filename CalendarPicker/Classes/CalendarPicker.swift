@@ -93,6 +93,15 @@ open class CalendarPicker: UIView {
         }
     }
     
+    public var dateFormatType: DateFormatType = .default {
+        didSet {
+            self.pickerView.delegate = nil
+            self.pickerView.reloadAllComponents()
+            self.pickerView.delegate = self
+            self.updateDate(animated: false)
+        }
+    }
+    
     public var localeType: LocalizeType = .default {
         didSet {
             self.pickerView.delegate = nil
@@ -103,9 +112,9 @@ open class CalendarPicker: UIView {
     }
     
     public var selectedDateComponent: DateComponent {
-        let year = self.pickerView.selectedRow(inComponent: self.localeType.dateIndex(.year))
-        let month = self.pickerView.selectedRow(inComponent: self.localeType.dateIndex(.month))
-        let day = self.pickerView.selectedRow(inComponent: self.localeType.dateIndex(.day))
+        let year = self.pickerView.selectedRow(inComponent: self.localeType.dateIndex(.year, dateFormatType: self.dateFormatType))
+        let month = self.pickerView.selectedRow(inComponent: self.localeType.dateIndex(.month, dateFormatType: self.dateFormatType))
+        let day = self.pickerView.selectedRow(inComponent: self.localeType.dateIndex(.day, dateFormatType: self.dateFormatType))
         var component = DateComponent()
         component.year = year + self.minimumDateComponent.year + 1
         component.month = month + self.minimumDateComponent.month + 1
@@ -204,7 +213,7 @@ open class CalendarPicker: UIView {
             self.maximumDateComponent.reset()
         }
         
-        self.pickerView.reloadComponent(self.localeType.dateIndex(.year))
+        self.pickerView.reloadComponent(self.localeType.dateIndex(.year, dateFormatType: self.dateFormatType))
     }
     
     private func availableMonthDate() {
@@ -220,7 +229,7 @@ open class CalendarPicker: UIView {
             self.maximumDateComponent.month = 0
         }
         
-        self.pickerView.reloadComponent(self.localeType.dateIndex(.month))
+        self.pickerView.reloadComponent(self.localeType.dateIndex(.month, dateFormatType: self.dateFormatType))
     }
     
     private func availableDayDate() {
@@ -245,7 +254,7 @@ open class CalendarPicker: UIView {
             self.maximumDateComponent.day = 0
         }
         
-        self.pickerView.reloadComponent(self.localeType.dateIndex(.day))
+        self.pickerView.reloadComponent(self.localeType.dateIndex(.day, dateFormatType: self.dateFormatType))
     }
     
     @discardableResult
@@ -253,7 +262,7 @@ open class CalendarPicker: UIView {
         if !self.isShow { return false }
         if self.dateComponent.year - self.minimumDateComponent.year - 1 < 0 { return false }
         if (self.years - self.minimumDateComponent.year - self.maximumDateComponent.year) < (self.dateComponent.year - self.minimumDateComponent.year - 1) { return false }
-        self.pickerView.selectRow(self.dateComponent.year - self.minimumDateComponent.year - 1, inComponent: self.localeType.dateIndex(.year), animated: animated)
+        self.pickerView.selectRow(self.dateComponent.year - self.minimumDateComponent.year - 1, inComponent: self.localeType.dateIndex(.year, dateFormatType: self.dateFormatType), animated: animated)
         return true
     }
     
@@ -262,7 +271,7 @@ open class CalendarPicker: UIView {
         if !self.isShow { return false }
         if self.dateComponent.month - self.minimumDateComponent.month - 1 < 0 { return false }
         if (self.months - self.minimumDateComponent.month - self.maximumDateComponent.month) < (self.dateComponent.month - self.minimumDateComponent.month - 1) { return false }
-        self.pickerView.selectRow(self.dateComponent.month - self.minimumDateComponent.month - 1, inComponent: self.localeType.dateIndex(.month), animated: animated)
+        self.pickerView.selectRow(self.dateComponent.month - self.minimumDateComponent.month - 1, inComponent: self.localeType.dateIndex(.month, dateFormatType: self.dateFormatType), animated: animated)
         return true
     }
     
@@ -271,7 +280,7 @@ open class CalendarPicker: UIView {
         if !self.isShow { return false }
         if self.dateComponent.day - self.minimumDateComponent.day - 1 < 0 { return false }
         if (self.days - self.minimumDateComponent.day - self.maximumDateComponent.day) < (self.dateComponent.day - self.minimumDateComponent.day - 1) { return false }
-        self.pickerView.selectRow(self.dateComponent.day - self.minimumDateComponent.day - 1, inComponent: self.localeType.dateIndex(.day), animated: animated)
+        self.pickerView.selectRow(self.dateComponent.day - self.minimumDateComponent.day - 1, inComponent: self.localeType.dateIndex(.day, dateFormatType: self.dateFormatType), animated: animated)
         return true
     }
     
@@ -294,7 +303,7 @@ extension CalendarPicker: UIPickerViewDelegate {
     }
     
     public func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        return self.localeType.width(dateType: self.localeType.dateArray[component], isShowWeek: self.isShowWeek)
+        return self.localeType.width(dateType: self.localeType.dateArray(self.dateFormatType)[component], isShowWeek: self.isShowWeek)
     }
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -309,11 +318,11 @@ extension CalendarPicker: UIPickerViewDelegate {
 extension CalendarPicker: UIPickerViewDataSource {
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         if !self.isShow { return 0 }
-        return self.localeType.dateArray.count
+        return self.localeType.dateArray(self.dateFormatType).count
     }
     
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch self.localeType.dateArray[component] {
+        switch self.localeType.dateArray(self.dateFormatType)[component] {
         case .year:
             return self.years - self.minimumDateComponent.year - self.maximumDateComponent.year
         case .month:
@@ -324,7 +333,7 @@ extension CalendarPicker: UIPickerViewDataSource {
     }
     
     public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let dateType = self.localeType.dateArray[component]
+        let dateType = self.localeType.dateArray(self.dateFormatType)[component]
         let label = UILabel()
         label.textAlignment = self.localeType.alignment(dateType: dateType)
         let attributedString = NSMutableAttributedString()

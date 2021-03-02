@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		05C16D8BA63C62F3B10ADEBD78D9BDED /* CalendarPicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6232B981781D407A74326D219E89625B /* CalendarPicker-dummy.m */; };
 		0D14380AAF3C291A8B23CDE9A916360C /* CalendarPicker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EFD1E4F3797786B30E937E268258F883 /* CalendarPicker-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1659A69E25EDFFDF00E783F8 /* DateFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1659A69D25EDFFDF00E783F8 /* DateFormatType.swift */; };
 		1887A83622D321BA00CB1121 /* CalendarPicker+LocalizeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887A83522D321BA00CB1121 /* CalendarPicker+LocalizeType.swift */; };
 		1887A83822D321F500CB1121 /* DateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887A83722D321F500CB1121 /* DateComponent.swift */; };
 		1887A83A22D3224B00CB1121 /* Date+dateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1887A83922D3224B00CB1121 /* Date+dateComponent.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		06D11F889136282982FCFD2CD30B231D /* Pods-CalendarPicker_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CalendarPicker_Tests-Info.plist"; sourceTree = "<group>"; };
 		0C69397735888A883C5FEFF38ED90A8A /* CalendarPicker.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = CalendarPicker.podspec; sourceTree = "<group>"; tabWidth = 2; };
+		1659A69D25EDFFDF00E783F8 /* DateFormatType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateFormatType.swift; path = CalendarPicker/Classes/DateFormatType.swift; sourceTree = "<group>"; };
 		1887A83522D321BA00CB1121 /* CalendarPicker+LocalizeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CalendarPicker+LocalizeType.swift"; path = "CalendarPicker/Classes/CalendarPicker+LocalizeType.swift"; sourceTree = "<group>"; };
 		1887A83722D321F500CB1121 /* DateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DateComponent.swift; path = CalendarPicker/Classes/DateComponent.swift; sourceTree = "<group>"; };
 		1887A83922D3224B00CB1121 /* Date+dateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Date+dateComponent.swift"; path = "CalendarPicker/Classes/Date+dateComponent.swift"; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				1887A83722D321F500CB1121 /* DateComponent.swift */,
 				1887A83B22D3226C00CB1121 /* DateComponent+Week.swift */,
 				1887A83D22D322B400CB1121 /* DateType.swift */,
+				1659A69D25EDFFDF00E783F8 /* DateFormatType.swift */,
 				1887A83922D3224B00CB1121 /* Date+dateComponent.swift */,
 				EC0F54FC42447299C7A3E5ECE79BD267 /* Pod */,
 				FF0C2AA70040BF629A868647B389FD08 /* Support Files */,
@@ -387,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1659A69E25EDFFDF00E783F8 /* DateFormatType.swift in Sources */,
 				05C16D8BA63C62F3B10ADEBD78D9BDED /* CalendarPicker-dummy.m in Sources */,
 				1887A83622D321BA00CB1121 /* CalendarPicker+LocalizeType.swift in Sources */,
 				D8C69CD70B96B865ED6F0690E1C2CE72 /* CalendarPicker.swift in Sources */,
@@ -474,6 +478,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 0.1.2;
 				MODULEMAP_FILE = "Target Support Files/CalendarPicker/CalendarPicker.modulemap";
 				PRODUCT_MODULE_NAME = CalendarPicker;
 				PRODUCT_NAME = CalendarPicker;
@@ -539,6 +544,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 0.1.2;
 				MODULEMAP_FILE = "Target Support Files/CalendarPicker/CalendarPicker.modulemap";
 				PRODUCT_MODULE_NAME = CalendarPicker;
 				PRODUCT_NAME = CalendarPicker;

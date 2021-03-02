@@ -65,6 +65,14 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction private func dateFormatChanged(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            self.calendarPicker.dateFormatType = .default
+        } else if sender.selectedSegmentIndex == 1 {
+            self.calendarPicker.dateFormatType = .yearMonth
+        }
+    }
+    
     @IBAction private func miniumChanged(_ sender: UISlider) {
         let date = Date().addingTimeInterval(-60*60*24*TimeInterval(sender.value))
         self.minimumLabel.text = "minimumDate - \(date)"

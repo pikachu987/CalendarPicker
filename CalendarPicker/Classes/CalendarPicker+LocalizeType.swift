@@ -37,10 +37,17 @@ public extension CalendarPicker {
             else { return .default }
         }
         
-        var dateArray: [DateType] {
-            switch self {
-            case .ko, .jp, .zh: return [.year, .month, .day]
-            case .en, .default: return [.month, .day, .year]
+        func dateArray(_ dateFormatType: DateFormatType) -> [DateType] {
+            if dateFormatType == .default {
+                switch self {
+                case .ko, .jp, .zh: return [.year, .month, .day]
+                case .en, .default: return [.month, .day, .year]
+                }
+            } else {
+                switch self {
+                case .ko, .jp, .zh: return [.year, .month]
+                case .en, .default: return [.month, .year]
+                }
             }
         }
         
@@ -94,8 +101,8 @@ public extension CalendarPicker {
             }
         }
         
-        func dateIndex(_ dateType: DateType) -> Int {
-            return self.dateArray.firstIndex(where: { $0 == dateType }) ?? 0
+        func dateIndex(_ dateType: DateType, dateFormatType: DateFormatType) -> Int {
+            return self.dateArray(dateFormatType).firstIndex(where: { $0 == dateType }) ?? 0
         }
         
         func year(_ value: Int) -> String {
