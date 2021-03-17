@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CalendarPicker'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'I have added some features in the iOS default DatePicker.'
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +29,7 @@ You can set the day of the week to appear.
   s.source           = { :git => 'https://github.com/pikachu987/CalendarPicker.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.swift_version = '5.0'
 
